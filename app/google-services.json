@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "371918940063",
+    "project_id": "integration-143cf",
+    "storage_bucket": "integration-143cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371918940063:android:5502c79ec6861fa6b9bfaa",
+        "android_client_info": {
+          "package_name": "com.example.integration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371918940063-4eqi4boup1cm0e4h7953rsjqh3au7j1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC86PVzap5bQI7ufSHzTNGHse_Yfyedvnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371918940063-4eqi4boup1cm0e4h7953rsjqh3au7j1o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

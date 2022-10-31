@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Instructions for use"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:layout_marginTop="25dp">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Camera\n\tIn this section, a camera is prepared so that you can know information such as the invoice of your package.\n\nReservation\n\t In this section, you can schedule time to turn on the camera.\n\nSetting\n\tIn this section, you can set up for notifications and know how to use them."
+            android:textSize="22dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal">
+        </TextView>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

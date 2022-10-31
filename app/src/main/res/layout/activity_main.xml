@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="158dp"
+                android:layout_marginTop="200dp"
+                android:text="no parcel now"
+                android:textSize="30dp"
+                android:id="@+id/noParcel"
+                android:visibility="gone"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="0,1,2">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:text="camera" />
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="reservation"
+
+                    />
+
+                <Button
+                    android:id="@+id/btn3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="setting" />
+
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

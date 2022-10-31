@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="UseSwitchCompatOrMaterialXml">
+
+        <Button
+            android:id="@+id/set_btn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="btn1"
+            android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/set_btn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Sound MODE"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_gravity="center"
+            android:text="Volume Setting"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:min="0"/>
+
+        <Button
+            android:id="@+id/set_btn3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vibration Mode"
+            android:layout_marginTop="40dp"
+            android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/toast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Toast Message Setting"
+            android:textSize="18dp"
+            android:clickable="false"
+            android:layout_marginTop="40dp"/>
+
+        <Switch
+            android:id="@+id/switchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="190dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp" />
+
+        <Button
+            android:id="@+id/explain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textSize="18dp"
+            android:text="Instructions for use" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
