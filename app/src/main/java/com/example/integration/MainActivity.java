@@ -45,7 +45,20 @@ public class MainActivity extends AppCompatActivity {
         Button btn1 = (Button) findViewById(R.id.btn1);
         Button btn2 = (Button) findViewById(R.id.btn2);
         Button btn3 = (Button) findViewById(R.id.btn3);
-
+        Button btnE = (Button) findViewById(R.id.parcelEBtn);
+        Button btnN = (Button) findViewById(R.id.parcelNBtn);
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnE.setEnabled(true);
+            }
+        }, 1000);
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnN.setEnabled(true);
+            }
+        }, 1000);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +84,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),Parcel_e.class);
+                startActivity(intent);
+
+            }
+        });
+
+        btnN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),Parcel_N.class);
+                startActivity(intent);
+
+            }
+        });
+
         if(false == isConnected()) {
             Toast.makeText(this,"not connected",Toast.LENGTH_SHORT).show();
             return;
@@ -87,11 +118,11 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
-        TextView mainText1 = (TextView) findViewById(R.id.noParcel);
+        //TextView mainText1 = (TextView) findViewById(R.id.noParcel);
         RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
 
         //받은 택배 있음
-        mainText1.setVisibility(View.GONE);
+        //mainText1.setVisibility(View.GONE);
         rv.setVisibility(View.VISIBLE);
 
         recyclerView = findViewById(R.id.recyclerView); // 아디 연결
@@ -123,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CustomAdapter(arrayList, this);
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
         if(false){ //받은 택배 없음
-            mainText1.setVisibility(View.VISIBLE);
+            //mainText1.setVisibility(View.VISIBLE);
             rv.setVisibility(View.GONE);
         }
     }

@@ -3,7 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/layout/activity_main.xml" value="0.14944275582573455" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.223" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/drawable/btn_disable.xml" value="0.223" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/drawable/btn_normal.xml" value="0.223" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/drawable/btn_ok.xml" value="0.223" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/drawable/btn_ripple.xml" value="0.223" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/drawable/gray_btn.xml" value="0.223" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/drawable/ic_launcher_background.xml" value="0.223" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/drawable/round_btn.xml" value="0.223" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/drawable/txt_color.xml" value="0.223" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/layout/activity_main.xml" value="0.25483870967741934" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/layout/btn1.xml" value="0.30364583333333334" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/layout/list_item.xml" value="0.1" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/layout/parcel_end.xml" value="0.18892508143322476" />
+        <entry key="..\:/Users/Y/AndroidStudioProjects/Integration/app/src/main/res/layout/parcel_not.xml" value="0.30364583333333334" />
       </map>
     </option>
   </component>

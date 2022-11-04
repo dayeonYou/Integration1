@@ -17,9 +17,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="550dp"
+            android:layout_height="475dp"
             android:orientation="vertical">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,46 +31,85 @@
                 />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
                 android:layout_weight="1"
-                android:visibility="gone"
+                android:id="@+id/recyclerView"
+                android:visibility="invisible"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
+                android:layout_height="wrap_content">
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:stretchColumns="0,1,2">
-
-            <TableRow
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/btn1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-
-                    android:text="camera" />
-
-                <Button
-                    android:id="@+id/btn2"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="90dp"
+                    android:text="회수된 택배"
+                    android:background="@drawable/btn_ripple"
+                    android:textColor="@drawable/txt_color"
+                    android:id="@+id/parcelEBtn"
+                    android:enabled="false"
+                    android:layout_margin="10dp">
+                </androidx.appcompat.widget.AppCompatButton>
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="reservation"
+                    android:layout_weight="1"
+                    android:visibility="invisible">
+                </TextView>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/parcelNBtn"
+                    android:layout_margin="10dp"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_ripple"
+                    android:enabled="false"
+                    android:text="타인의 택배"
+                    android:textColor="@drawable/txt_color">
+                </androidx.appcompat.widget.AppCompatButton>
+            </LinearLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="0,1,2">
 
-                    />
-
-                <Button
-                    android:id="@+id/btn3"
-                    android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="setting" />
+                    android:orientation="vertical">
 
-            </TableRow>
-        </TableLayout>
+                    <Button
+                        android:id="@+id/btn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+
+                        android:text="camera" />
+
+                    <Button
+                        android:id="@+id/btn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="reservation"
+
+                        />
+
+                    <Button
+                        android:id="@+id/btn3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="setting" />
+
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

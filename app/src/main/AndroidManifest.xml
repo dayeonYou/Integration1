@@ -26,6 +26,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Btn2"></activity>
+        <activity android:name=".Btn1"></activity>
+        <activity android:name=".Alarm1"></activity>
+        <activity android:name=".Btn3"></activity>
+        <activity android:name=".Explain"></activity>
+        <activity android:name=".Parcel_e"></activity>
+        <activity android:name=".Parcel_N"></activity>
     </application>
 
 </manifest>
