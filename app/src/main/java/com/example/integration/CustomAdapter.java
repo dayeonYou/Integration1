@@ -1,8 +1,10 @@
 package com.example.integration;
 
 
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,38 +49,50 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         holder.rightParcel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Toast.makeText(v.getContext(),"YOUR PARCEL",Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setMessage("확인 버튼을 누르면 받은 택배로 취급됩니다.");
-                builder.setTitle("YOUR PARCEL");
-                builder.setCancelable(false);
-                builder.setNegativeButton("확인", (DialogInterface.OnClickListener) (dialog, which) -> {
-                    remove(holder.getAdapterPosition());
-                    dialog.dismiss();
-                });
-                builder.setPositiveButton("취소", (DialogInterface.OnClickListener) (dialog, which) -> {
-                    dialog.cancel();
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+                Toast.makeText(v.getContext(),"확인 해주셔서 감사합니다.",Toast.LENGTH_SHORT).show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+//                builder.setMessage("확인 버튼을 누르면 받은 택배로 취급됩니다.");
+//                builder.setTitle("YOUR PARCEL");
+//                builder.setCancelable(false);
+//                builder.setNegativeButton("확인", (DialogInterface.OnClickListener) (dialog, which) -> {
+//                    remove(holder.getAdapterPosition());
+//                    dialog.dismiss();
+//                });
+//                builder.setPositiveButton("취소", (DialogInterface.OnClickListener) (dialog, which) -> {
+//                    dialog.cancel();
+//                });
+//                AlertDialog alertDialog = builder.create();
+//                alertDialog.show();
             }
         });
         holder.wrongParcel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
                 Toast.makeText(v.getContext(),"NOT YOUR PARCEL",Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setMessage("\n자신의 것이 아닌 택배를 받은 경우\n      1. 받는 사람과 주소를 확인합니다.\n      2. 받는 사람의 전화번호로 연락해봅니다.\n      3. 택배기사에게 연락해봅니다.\n");
+                builder.setMessage("\n자신의 것이 아닌 택배를 받은 경우\n      1. 받는 사람과 주소를 확인합니다.\n      2. 받는 사람의 전화번호로 연락해봅니다.\n      3. 택배기사에게 연락해봅니다.\n확인 버튼을 누르면 타인의 택배로 취급됩니다");
                 builder.setTitle("NOT YOUR PARCEL");
                 builder.setCancelable(false);
                 builder.setNegativeButton("확인", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    String input = holder.tv_id.getText().toString();
+                    //인텐트 선언 및 정의
+                    Intent intent = new Intent(v.getContext(), Parcel_N.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //입력한 input값을 intent로 전달한다.
+                    intent.putExtra("text", input);
+                    //액티비티 이동
+                    remove(holder.getAdapterPosition());
                     dialog.dismiss();
+                    //context.startActivity(intent);
+                    v.getContext().startActivity(intent);
                 });
                 builder.setPositiveButton("취소", (DialogInterface.OnClickListener) (dialog, which) -> {
                     dialog.cancel();
                 });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
+                //
             }
         });
         holder.itemView.setTag(position);
