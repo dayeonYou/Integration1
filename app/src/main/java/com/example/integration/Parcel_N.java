@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Parcel_N extends AppCompatActivity {
     private ArrayList<Data_en> arrayList;
@@ -19,20 +20,24 @@ public class Parcel_N extends AppCompatActivity {
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<String> contentTextArray = new ArrayList<>();
-    private String string2 = "aaa";
+    private String string2 = null;
     SharedPreferences sp;
     @Override
     protected void onCreate(@Nullable Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.parcel_not);
         setTitle("잘못 온 택배");
-        int i = 0, count = 0;
         Intent intent = getIntent();
         contentTextArray.add(intent.getStringExtra("text"));
         sp = getSharedPreferences("sp", MODE_PRIVATE);
         String save = sp.getString("save", "");
-        contentTextArray.add(save);
-
+        if(save != null){
+            String arr[] = save.split("\n");
+            ArrayList<String> list = new ArrayList(Arrays.asList(arr));
+            for(int i=0;i<list.size();i++){
+                if(list.get(i) != null) contentTextArray.add(list.get(i));
+            }
+        }
         if (contentTextArray.get(0) != null) {
             recyclerView = (RecyclerView) findViewById(R.id.rvN);
             recyclerView.setVisibility(View.VISIBLE);
@@ -53,12 +58,22 @@ public class Parcel_N extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        int i=0;
+        for(i=0;i<contentTextArray.size();i++){
+            if(i==0){
+                string2 = contentTextArray.get(0);
+            }
+            if(string2 != null && i!=0){
+                string2 = string2 + "\n" + contentTextArray.get(i);
+            }
+        }
         save(string2);
     }
 
     public void save(String s){
         sp = getSharedPreferences("sp",MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
         editor.putString("save",s);
         editor.commit();
     }

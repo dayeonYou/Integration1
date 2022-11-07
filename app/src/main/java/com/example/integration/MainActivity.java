@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<User> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         btnN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),Parcel_N.class);
+                Intent intent = new Intent(getApplicationContext(),Parcel_not.class);
                 startActivity(intent);
 
             }
@@ -118,11 +117,9 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
-        //TextView mainText1 = (TextView) findViewById(R.id.noParcel);
         RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
 
         //받은 택배 있음
-        //mainText1.setVisibility(View.GONE);
         rv.setVisibility(View.VISIBLE);
 
         recyclerView = findViewById(R.id.recyclerView); // 아디 연결
@@ -151,10 +148,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
-        adapter = new CustomAdapter(arrayList, this);
+        adapter = new CustomAdapter(arrayList, this,"home");
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
         if(false){ //받은 택배 없음
-            //mainText1.setVisibility(View.VISIBLE);
             rv.setVisibility(View.GONE);
         }
     }

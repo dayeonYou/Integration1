@@ -33,6 +33,7 @@
         <activity android:name=".Explain"></activity>
         <activity android:name=".Parcel_e"></activity>
         <activity android:name=".Parcel_N"></activity>
+        <activity android:name=".Parcel_not"></activity>
     </application>
 
 </manifest>
