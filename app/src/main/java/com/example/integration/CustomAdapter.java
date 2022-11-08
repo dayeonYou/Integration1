@@ -104,7 +104,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                         //context.startActivity(intent);
                         //v.getContext().startActivity(intent);
                         Parcel_not.writeNewUser(id,profileUrl);
-
                         MainActivity.deleteData(id);
                     });
                     builder.setPositiveButton("취소", (DialogInterface.OnClickListener) (dialog, which) -> {
@@ -121,6 +120,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             @Override
             public boolean onLongClick(View v){
                 remove(holder.getAdapterPosition());
+                if(branch == "home") MainActivity.deleteData(id);
+                else{
+                    Parcel_not.deleteDataN(id);
+                }
                 return true;
             }
         });

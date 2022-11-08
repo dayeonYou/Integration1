@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17dp"
-            android:text="자신의 것이 아닌 택배를 받은 경우\n      1. 받는 사람과 주소를 확인합니다.\n      2. 받는 사람의 전화번호로 연락해봅니다.\n      3. 택배기사에게 연락해봅니다."
+            android:text="자신의 것이 아닌 택배를 받은 경우\n      1. 받는 사람과 주소를 확인합니다.\n      2. 받는 사람의 전화번호로 연락해봅니다.\n      3. 택배기사에게 연락해봅니다.\n 길게 클릭해 삭제."
             tools:ignore="MissingConstraints">
         </TextView>
     </LinearLayout>

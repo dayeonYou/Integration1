@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -87,5 +88,22 @@ public class Parcel_not extends AppCompatActivity {
         editor.clear();
         editor.putInt("save",s);
         editor.commit();
+    }
+    static void deleteDataN(String tv_id) {
+
+        Query query = databaseReference.orderByChild("id").equalTo(tv_id);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                for(DataSnapshot dataSnapshot1 : datasnapshot.getChildren()){
+                    dataSnapshot1.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

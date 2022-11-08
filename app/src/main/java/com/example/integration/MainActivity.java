@@ -210,40 +210,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-//        database = FirebaseDatabase.getInstance();
-//        databaseReference = database.getReference("User/" + "User_01");
-//        databaseReference = database.getReference("User").child(parent);
-//        databaseReference.removeValue();
     }
 }
-
-//databaseReference = database.getReference("User"); // DB 테이블 연결
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//@Override
-//public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//        dataSnapshot.getRef().removeValue();
-//        }
-//@Override
-//public void onCancelled(@NonNull DatabaseError databaseError) {
-//        // 디비를 가져오던중 에러 발생 시
-//        Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
-//        }
-//        });
-
-//databaseReference.addValueEventListener(new ValueEventListener() {
-//@Override
-//public void onDataChange(@NonNull DataSnapshot snapshot) {
-//        String value = snapshot.getValue(String.class);
-//
-//
-//        snapshot.getRef().removeValue();
-//        if(snapshot.child("msg").getValue() != null){
-//        String msg = snapshot.child("msg").getValue().toString();
-//        return;
-//        }
-//        }
-//@Override
-//public void onCancelled(@NonNull DatabaseError error) {
-//        Log.e("MainActivity", String.valueOf(error.toException()));
-//        }
-//        });
