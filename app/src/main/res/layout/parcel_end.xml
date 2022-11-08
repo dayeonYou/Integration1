@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_weight="1"
+            android:id="@+id/rvN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:text="택배를 분실한 경우 대처 방법\n    1. 신고 접수\n    * 파손 및 분실은 발생일 14일 이내로 접수 필수!\n    * 14일 초과 시 택배사의 책임 의무가 사라집니다.\n    2. 분실에 대한 내용 증명을 위한 우편을 제출,\n 또는 따로 인터넷 접수처에 따른 순차적인 과정을 진행"
+            tools:ignore="MissingConstraints">
+        </TextView>
+        <TextView
+            android:layout_margin="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="길게 클릭하여 삭제 가능">
+        </TextView>
+    </LinearLayout>
 
-        android:id="@+id/text_tv"
-        tools:ignore="InvalidId">
-    </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

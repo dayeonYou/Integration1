@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retrieved Parcel"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:layout_marginLeft="7dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회수된 택배 정보"
+        android:layout_margin="5dp"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="데이터베이스에서 받아온 정보"
+        android:textSize="17dp"
+        android:layout_margin="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/checkT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="본인이 회수한 것이 맞습니까?"
+            android:textSize="17dp"
+            android:layout_gravity="center"/>
+
+        <RadioGroup
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center">
+            <RadioButton
+                android:text="yes"
+                android:id="@+id/rightParcel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="80dp"
+                android:layout_gravity="center">
+            </RadioButton>
+            <RadioButton
+                android:text="no"
+                android:id="@+id/wrongParcel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center">
+            </RadioButton>
+        </RadioGroup>
+    </LinearLayout>
+</LinearLayout>
