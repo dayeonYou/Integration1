@@ -27,11 +27,16 @@ public class Parcel_not extends AppCompatActivity {
     private ArrayList<User> arrayList;
     static FirebaseDatabase database;
     static DatabaseReference databaseReference;
+    SharedPreferences sp;
+    static int saveInt;
     @Override
     protected void onCreate(@Nullable Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.parcel_not);
         setTitle("잘못 온 택배");
+
+        sp = getSharedPreferences("sp", MODE_PRIVATE);
+        saveInt = sp.getInt("save", 0);
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.rvN);
         rv.setVisibility(View.VISIBLE);
@@ -65,12 +70,22 @@ public class Parcel_not extends AppCompatActivity {
         adapter = new CustomAdapter(arrayList, this,"not");
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
+        saveInt++;
+        save(saveInt);
+
     }
     static void writeNewUser(String tv_id, String iv_profile) {
-        User user = new User(tv_id,iv_profile);
-        int number = (int)(Math.random()*100);
-        String index = "nUser_0" + number;
+        //User user = new User(tv_id,iv_profile);
+        //int number = (int)(Math.random()*100);
+        String index = "nUser_0" + saveInt;
         database.getReference("N").child(index).child("id").setValue(tv_id);
         database.getReference("N").child(index).child("profile").setValue(iv_profile);
+    }
+    public void save(int s){
+        sp = getSharedPreferences("sp",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.putInt("save",s);
+        editor.commit();
     }
 }

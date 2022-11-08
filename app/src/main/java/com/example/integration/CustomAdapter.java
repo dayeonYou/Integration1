@@ -19,6 +19,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
@@ -59,6 +61,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         holder.tv_id.setText(arrayList.get(position).getId());
         String id = arrayList.get(position).getId();
         String profileUrl = arrayList.get(position).getProfile();
+
         if(branch == "home"){
             holder.rightParcel.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -101,6 +104,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                         //context.startActivity(intent);
                         //v.getContext().startActivity(intent);
                         Parcel_not.writeNewUser(id,profileUrl);
+
+                        MainActivity.deleteData(id);
                     });
                     builder.setPositiveButton("취소", (DialogInterface.OnClickListener) (dialog, which) -> {
                         dialog.cancel();
