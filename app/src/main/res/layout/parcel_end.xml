@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
             android:layout_weight="1"
-            android:id="@+id/rvN"
+            android:id="@+id/rvE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints">
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17dp"
-            android:text="택배를 분실한 경우 대처 방법\n    1. 신고 접수\n    * 파손 및 분실은 발생일 14일 이내로 접수 필수!\n    * 14일 초과 시 택배사의 책임 의무가 사라집니다.\n    2. 분실에 대한 내용 증명을 위한 우편을 제출,\n 또는 따로 인터넷 접수처에 따른 순차적인 과정을 진행"
+            android:text="택배를 분실한 경우 대처 방법\n    1. 신고 접수\n    * 파손 및 분실은 발생일 14일 이내로 접수 필수!\n    * 14일 초과 시 택배사의 책임 의무가 사라집니다.\n    2. 분실에 대한 내용 증명을 위한 우편을 제출,\n 또는 따로 인터넷 접수처에 따른 순차적인 과정을 진행\n    3. 택배사와 다툼으로 인해 제대로 보상이 이루어지지 않는 경우, 1372 공정거래위원회에 연락 후 상담"
             tools:ignore="MissingConstraints">
         </TextView>
         <TextView

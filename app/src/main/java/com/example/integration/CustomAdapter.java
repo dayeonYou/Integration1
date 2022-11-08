@@ -47,7 +47,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_en, parent, false);
         }
         else{
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_en, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_e, parent, false);
         }
         CustomViewHolder holder = new CustomViewHolder(view);
         return holder;
@@ -55,9 +55,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        Glide.with(holder.itemView)
-                .load(arrayList.get(position).getProfile())
-                .into(holder.iv_profile);
+        if(branch!="end"){
+            Glide.with(holder.itemView)
+                    .load(arrayList.get(position).getProfile())
+                    .into(holder.iv_profile);
+        }
         holder.tv_id.setText(arrayList.get(position).getId());
         String id = arrayList.get(position).getId();
         String profileUrl = arrayList.get(position).getProfile();
@@ -67,25 +69,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 @Override
                 public void onClick(View v){
                     Toast.makeText(v.getContext(),"확인 해주셔서 감사합니다.",Toast.LENGTH_SHORT).show();
-//                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-//                builder.setMessage("확인 버튼을 누르면 받은 택배로 취급됩니다.");
-//                builder.setTitle("YOUR PARCEL");
-//                builder.setCancelable(false);
-//                builder.setNegativeButton("확인", (DialogInterface.OnClickListener) (dialog, which) -> {
-//                    remove(holder.getAdapterPosition());
-//                    dialog.dismiss();
-//                });
-//                builder.setPositiveButton("취소", (DialogInterface.OnClickListener) (dialog, which) -> {
-//                    dialog.cancel();
-//                });
-//                AlertDialog alertDialog = builder.create();
-//                alertDialog.show();
                 }
             });
             holder.wrongParcel.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-
                     Toast.makeText(v.getContext(),"NOT YOUR PARCEL",Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     builder.setMessage("\n자신의 것이 아닌 택배를 받은 경우\n      1. 받는 사람과 주소를 확인합니다.\n      2. 받는 사람의 전화번호로 연락해봅니다.\n      3. 택배기사에게 연락해봅니다.\n확인 버튼을 누르면 타인의 택배로 취급됩니다");
@@ -114,6 +102,34 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 }
             });
         }
+        else if(branch == "end"){
+            holder.rightParcel.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Toast.makeText(v.getContext(),"택배가 정상적으로 회수되었습니다.",Toast.LENGTH_SHORT).show();
+                }
+            });
+            holder.wrongParcel.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Toast.makeText(v.getContext(),"택배 분실 발생!",Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setMessage("\n 확인 버튼을 누르면 분실 택배로 취급됩니다. \n 서둘러 아래의 대처 절차를 따르십시오.\n");
+                    builder.setTitle("Parcel missing!");
+                    builder.setCancelable(false);
+                    builder.setNegativeButton("확인", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        //remove(holder.getAdapterPosition());
+                        dialog.dismiss();
+//                        MainActivity.deleteData(id);
+                    });
+                    builder.setPositiveButton("취소", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        dialog.cancel();
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+            });
+        }
 
         holder.itemView.setTag(position);
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
@@ -121,8 +137,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             public boolean onLongClick(View v){
                 remove(holder.getAdapterPosition());
                 if(branch == "home") MainActivity.deleteData(id);
-                else{
+                else if(branch == "not"){
                     Parcel_not.deleteDataN(id);
+                }
+                else if(branch == "end"){
+                    Parcel_e.deleteDataE(id);
                 }
                 return true;
             }
@@ -150,9 +169,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.iv_profile = itemView.findViewById(R.id.iv_profile);
+            if(branch != "end") this.iv_profile = itemView.findViewById(R.id.iv_profile);
             this.tv_id = itemView.findViewById(R.id.tv_id);
-            if(branch == "home"){
+            if(branch == "home" || branch == "end"){
                 this.rightParcel = (RadioButton) itemView.findViewById(R.id.rightParcel);
                 this.wrongParcel = (RadioButton) itemView.findViewById(R.id.wrongParcel);
             }
