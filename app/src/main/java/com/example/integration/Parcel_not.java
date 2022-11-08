@@ -27,7 +27,6 @@ public class Parcel_not extends AppCompatActivity {
     private ArrayList<User> arrayList;
     static FirebaseDatabase database;
     static DatabaseReference databaseReference;
-
     @Override
     protected void onCreate(@Nullable Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
@@ -69,7 +68,9 @@ public class Parcel_not extends AppCompatActivity {
     }
     static void writeNewUser(String tv_id, String iv_profile) {
         User user = new User(tv_id,iv_profile);
-        database.getReference("N").child("index").child("id").setValue(tv_id);
-        database.getReference("N").child("index").child("profile").setValue(iv_profile);
+        int number = (int)(Math.random()*100);
+        String index = "nUser_0" + number;
+        database.getReference("N").child(index).child("id").setValue(tv_id);
+        database.getReference("N").child(index).child("profile").setValue(iv_profile);
     }
 }
