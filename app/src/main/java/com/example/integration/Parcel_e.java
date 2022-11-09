@@ -1,9 +1,11 @@
 package com.example.integration;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +37,20 @@ public class Parcel_e extends AppCompatActivity {
         setContentView(R.layout.parcel_end);
         setTitle("회수된 택배");
 
+        Button btnHandleE = (Button) findViewById(R.id.btnHandleE);
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnHandleE.setEnabled(true);
+            }
+        }, 100);
+        btnHandleE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),Handle_missing_parcel.class);
+                startActivity(intent);
+            }
+        });
         sp = getSharedPreferences("sp2", MODE_PRIVATE);
         saveInt = sp.getInt("save2", 0);
 

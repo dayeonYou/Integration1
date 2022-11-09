@@ -34,6 +34,7 @@
         <activity android:name=".Parcel_e"></activity>
         <activity android:name=".Parcel_N"></activity>
         <activity android:name=".Parcel_not"></activity>
+        <activity android:name=".Handle_missing_parcel"></activity>
     </application>
 
 </manifest>
