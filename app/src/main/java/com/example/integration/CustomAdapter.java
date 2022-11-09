@@ -55,7 +55,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        if(branch!="end"){
+        //branch!="end"
+        if(true){
             Glide.with(holder.itemView)
                     .load(arrayList.get(position).getProfile())
                     .into(holder.iv_profile);
@@ -169,7 +170,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            if(branch != "end") this.iv_profile = itemView.findViewById(R.id.iv_profile);
+            //branch != "end"
+            if(true) this.iv_profile = itemView.findViewById(R.id.iv_profile);
             this.tv_id = itemView.findViewById(R.id.tv_id);
             if(branch == "home" || branch == "end"){
                 this.rightParcel = (RadioButton) itemView.findViewById(R.id.rightParcel);

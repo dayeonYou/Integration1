@@ -4,6 +4,7 @@ package com.example.integration;
 public class User {
     private String profile;
     private String id;
+    private String receive;
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
@@ -11,6 +12,7 @@ public class User {
     public User(String id, String profile) {
         this.id = id;
         this.profile = profile;
+        this.receive = receive;
     }
 
     public String getProfile() {
@@ -29,6 +31,13 @@ public class User {
         this.id = id;
     }
 
+    public String getReceive() {
+        return receive;
+    }
+
+    public void setReceive(String receive) {
+        this.receive = receive;
+    }
 
 }
 

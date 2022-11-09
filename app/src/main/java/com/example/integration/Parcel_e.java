@@ -70,9 +70,10 @@ public class Parcel_e extends AppCompatActivity {
         save(saveInt);
 
     }
-    static void writeNewUserE(String tv_id) {
-        String index = "nUser_0" + saveInt;
+    static void writeNewUserE(String tv_id, String iv_profile) {
+        String index = "eUser_0" + saveInt;
         database.getReference("E").child(index).child("id").setValue(tv_id);
+        database.getReference("E").child(index).child("profile").setValue(iv_profile);
     }
     public void save(int s){
         sp = getSharedPreferences("sp2",MODE_PRIVATE);
