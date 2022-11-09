@@ -7,6 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:ignore="MissingConstraints"
         android:orientation="vertical"
         android:gravity="center">
         <TextView
@@ -15,7 +16,7 @@
             android:layout_height="wrap_content"
             android:textSize="30dp"
             android:textColor="@color/black"
-            android:text="어플 사용 방법"
+            android:text="잘못된 택배가 온 경우 대처법"
             android:gravity="center">
         </TextView>
         <TextView
@@ -23,37 +24,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25dp"
-            android:text="카메라 버튼">
+            android:text="1. 신고 접수">
         </TextView>
         <TextView
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18dp"
-            android:text="* In this section, a camera is prepared so that you can know information such as the invoice of your package.">
+            android:text="* 파손 및 분실은 발생일 14일 이내로 접수 필수!\n* 14일 초과 시 택배사의 책임 의무가 사라집니다.">
         </TextView>
         <TextView
             android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25dp"
-            android:text="예약 버튼">
+            android:text="2. 우편 제출">
         </TextView>
         <TextView
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18dp"
-            android:text="* In this section, you can schedule time to turn on the camera.">
+            android:text="* 분실에 대한 내용 증명을 위한 우편을 제출합니다.">
         </TextView>
         <TextView
             android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25dp"
-            android:text="설정 버튼">
+            android:text="3. 순차적인 과정 진행">
+        </TextView>
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="* 인터넷 접수처에 따라 순차적인 과정을 진행합니다.">
+        </TextView>
+        <TextView
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text="4. 1372 공정거래위원회에 연락">
         </TextView>
         <TextView
             android:layout_marginLeft="15dp"
@@ -61,7 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18dp"
-            android:text="* In this section, you can set up for notifications and know how to use them.">
+            android:text="* 택배사와 다툼으로 인해 제대로 보상이 이루어지지 않는 경우, 공정거래위원회에 연락합니다.">
         </TextView>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

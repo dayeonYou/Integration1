@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center"
         tools:ignore="UseSwitchCompatOrMaterialXml">
 
         <Button
@@ -15,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="btn1"
+            android:text="택배 분실 대처법"
             android:textSize="18dp"/>
 
         <Button
@@ -23,14 +24,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="Sound MODE"
+            android:text="소리 모드 선택"
             android:textSize="18dp"/>
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:text="Volume Setting"
             android:textSize="18dp"
@@ -48,7 +49,7 @@
             android:id="@+id/set_btn3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vibration Mode"
+            android:text="진동 모드 선택"
             android:layout_marginTop="40dp"
             android:textSize="18dp"/>
 
@@ -56,7 +57,7 @@
             android:id="@+id/toast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Toast Message Setting"
+            android:text="알림 설정"
             android:textSize="18dp"
             android:clickable="false"
             android:layout_marginTop="40dp"/>
@@ -65,7 +66,8 @@
             android:id="@+id/switchView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="190dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="30dp"
             android:minWidth="48dp"
             android:minHeight="48dp" />
 
@@ -73,9 +75,17 @@
             android:id="@+id/explain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="18dp"
+            android:text="어플 사용 설명서" />
+
+        <Button
+            android:id="@+id/btnHandleN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:textSize="18dp"
-            android:text="Instructions for use" />
+            android:text="오배송 대처법" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
