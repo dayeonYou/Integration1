@@ -11,13 +11,7 @@
         android:gravity="center"
         tools:ignore="UseSwitchCompatOrMaterialXml">
 
-        <Button
-            android:id="@+id/set_btn1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="택배 분실 대처법"
-            android:textSize="18dp"/>
+
 
         <Button
             android:id="@+id/set_btn2"
@@ -25,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="소리 모드 선택"
+            android:background="@drawable/round"
             android:textSize="18dp"/>
 
         <TextView
@@ -50,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="진동 모드 선택"
+            android:background="@drawable/round"
             android:layout_marginTop="40dp"
             android:textSize="18dp"/>
 
@@ -57,6 +53,7 @@
             android:id="@+id/toast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round"
             android:text="알림 설정"
             android:textSize="18dp"
             android:clickable="false"
@@ -73,6 +70,7 @@
 
         <Button
             android:id="@+id/explain"
+            android:background="@drawable/round"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -83,9 +81,18 @@
             android:id="@+id/btnHandleN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round"
             android:layout_marginTop="40dp"
             android:textSize="18dp"
             android:text="오배송 대처법" />
+        <Button
+            android:id="@+id/set_btn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="택배 분실 대처법"
+            android:textSize="18dp"
+            android:background="@drawable/round"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

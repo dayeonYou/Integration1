@@ -11,5 +11,6 @@ public class Explain extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         setContentView(R.layout.explain);
+        setTitle("어플 사용 방법");
     }
 }

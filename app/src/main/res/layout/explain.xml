@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18dp"
-            android:text="* In this section, a camera is prepared so that you can know information such as the invoice of your package.">
+            android:text="* 카메라로 당신의 택배 운송장과 같은 정보를\n   확인 할 수 있습니다.">
         </TextView>
         <TextView
             android:layout_margin="15dp"
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18dp"
-            android:text="* In this section, you can schedule time to turn on the camera.">
+            android:text="* 카메라를 켜놓을 예약을 설정 가능합니다.">
         </TextView>
         <TextView
             android:layout_margin="15dp"
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18dp"
-            android:text="* In this section, you can set up for notifications and know how to use them.">
+            android:text="* 설정에서는 알림에 대한 설정을 할 수 있고, \n   어플 사용법과 같은 설명을 볼 수 있습니다.">
         </TextView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
