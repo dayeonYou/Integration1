@@ -75,7 +75,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             holder.wrongParcel.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    Toast.makeText(v.getContext(),"NOT YOUR PARCEL",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(),"잘못 온 택배입니다.",Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     builder.setMessage("\n자신의 것이 아닌 택배를 받은 경우\n      1. 받는 사람과 주소를 확인합니다.\n      2. 받는 사람의 전화번호로 연락해봅니다.\n      3. 택배기사에게 연락해봅니다.\n확인 버튼을 누르면 타인의 택배로 취급됩니다");
                     builder.setTitle("NOT YOUR PARCEL");
@@ -92,6 +92,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                         dialog.dismiss();
                         //context.startActivity(intent);
                         //v.getContext().startActivity(intent);
+
                         Parcel_not.writeNewUser(id,profileUrl);
                         MainActivity.deleteData(id);
                     });

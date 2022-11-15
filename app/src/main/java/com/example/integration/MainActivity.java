@@ -2,10 +2,20 @@ package com.example.integration;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,9 +36,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.appcompat.app.AlertDialog;
 import java.lang.*;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -37,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<User> arrayList;
     static FirebaseDatabase database;
     static DatabaseReference databaseReference;
+    public static String NOTIFICATION_CHANNEL_ID = "1001";
+    public static String default_notification_id = "default";
+    SharedPreferences sp;
+    int size_array = 0;
+    int flag_receive = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,22 +151,37 @@ public class MainActivity extends AppCompatActivity {
 
         databaseReference = database.getReference("User"); // DB 테이블 연결
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                sp = getSharedPreferences("size_arraylist", MODE_PRIVATE);
+                size_array = sp.getInt("size_arraylist", 0);
                 arrayList.clear(); // 기존 배열리스트가 존재하지않게 초기화
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
                     User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
-                    arrayList.add(user);// 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
                     assert user != null;
                     String id = user.getId();
                     String profile = user.getProfile();
+                    if(Objects.equals(id, "exist")){
+                        break;
+                    }
+                    arrayList.add(user);// 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
                     if(user.getReceive() != null) { //택배 회수됨
                         Parcel_e.writeNewUserE(id, profile);
                         deleteData(user.getId());
                         //push 알림
+                        flag_receive = 1;
                     }
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
+                if(size_array < arrayList.size()){ //택배 추가됨
+                    scheduleNotification(getNotification(1),0);
+                }
+                else if((size_array > arrayList.size()) && (flag_receive == 1)){
+                    scheduleNotification(getNotification(2),0);
+                    flag_receive = 0;
+                }
+                save(arrayList.size());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -157,12 +189,51 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
+
         adapter = new CustomAdapter(arrayList, this,"home");
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
         if(false){ //받은 택배 없음
             rv.setVisibility(View.GONE);
         }
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void scheduleNotification(Notification notification, int delay){
+        Intent notificationIntent = new Intent(this, MyNotificationPublisher.class);
+        notificationIntent.putExtra(MyNotificationPublisher.NOTIFICATIONID,1);
+        notificationIntent.putExtra(MyNotificationPublisher.NOTIFICATION,notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,notificationIntent,PendingIntent.FLAG_IMMUTABLE);
+
+        long futureMillis = SystemClock.elapsedRealtime()+delay;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,futureMillis,pendingIntent);
+
+    }
+
+    private Notification getNotification(int num){
+        NotificationCompat.Builder builder= new NotificationCompat.Builder(this,default_notification_id);;
+        switch (num){
+            case 1:
+                builder = new NotificationCompat.Builder(this,"1");
+                builder.setContentText("1.택배 도착");
+                break;
+            case 2:
+                builder = new NotificationCompat.Builder(this,"2");
+                builder.setContentText("2.택배 회수됨");
+                break;
+            default:
+                builder.setContentText("default");
+                break;
+        }
+        builder.setChannelId(NOTIFICATION_CHANNEL_ID);
+        builder.setContentTitle("택배 정보 갱신!");
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        builder.setAutoCancel(true);
+        return builder.build();
+    }
+
     @Override
     public void onBackPressed() {
         // Create the object of AlertDialog Builder class
@@ -218,5 +289,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public void save(int s){
+        sp = getSharedPreferences("size_arraylist",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.putInt("size_arraylist",s);
+        editor.commit();
     }
 }

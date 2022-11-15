@@ -21,6 +21,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Parcel_e extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -69,6 +70,10 @@ public class Parcel_e extends AppCompatActivity {
                 arrayList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
+                    assert user != null;
+                    if(Objects.equals(user.getId(), "exist")){
+                        break;
+                    }
                     arrayList.add(user);
                 }
                 adapter.notifyDataSetChanged();

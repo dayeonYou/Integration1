@@ -20,6 +20,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Parcel_not extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -58,6 +59,10 @@ public class Parcel_not extends AppCompatActivity {
                 arrayList.clear(); // 기존 배열리스트가 존재하지않게 초기화
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
                     User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
+                    assert user != null;
+                    if(Objects.equals(user.getId(), "exist")) {
+                        break;
+                    }
                     arrayList.add(user); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침

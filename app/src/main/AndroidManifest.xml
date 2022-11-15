@@ -36,6 +36,7 @@
         <activity android:name=".Parcel_not"></activity>
         <activity android:name=".Handle_missing_parcel"></activity>
         <activity android:name=".Handle_misdelivery"></activity>
+        <receiver android:name=".MyNotificationPublisher"/>
     </application>
 
 </manifest>
