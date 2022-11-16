@@ -12,6 +12,7 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -37,6 +38,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.appcompat.app.AlertDialog;
 import java.lang.*;
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         EditText editText_name= (EditText) findViewById(R.id.ed_name);
         EditText editText_ad = (EditText) findViewById(R.id.ed_ad);
 
+        sp_w = getSharedPreferences("sp_wInt", MODE_PRIVATE);
+        saveInt = sp_w.getInt("sp_wInt", 0);
         editText_name.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {}
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -79,8 +83,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Do stuff
                 info_name = editText_name.getText().toString();
-                info_ad = editText_ad.getText().toString();
-                writeUserInfo(info_name, info_ad);
+                writeUserName(info_name);
             }
         });
         editText_ad.addTextChangedListener(new TextWatcher() {
@@ -89,14 +92,37 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Do stuff
-                info_name = editText_name.getText().toString();
                 info_ad = editText_ad.getText().toString();
-                writeUserInfo(info_name, info_ad);
+                writeUserAd(info_ad);
             }
         });
-        sp_w = getSharedPreferences("sp_wInt", MODE_PRIVATE);
-        saveInt = sp_w.getInt("sp_wInt", 0);
-        
+
+
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("Info/name");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                info_name = dataSnapshot.getValue().toString();
+                editText_name.setText(info_name);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("MainActivity", String.valueOf(databaseError.toException()));
+            }
+        });
+        databaseReference = database.getReference("Info/ad");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                info_ad = dataSnapshot.getValue().toString();
+                editText_ad.setText(info_ad);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("MainActivity", String.valueOf(databaseError.toException()));
+            }
+        });
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -361,9 +387,10 @@ public class MainActivity extends AppCompatActivity {
         }
         saveInt++;
     }
-    public void writeUserInfo(String name, String address) {
-        database = FirebaseDatabase.getInstance();
+    public void writeUserName(String name) {
         database.getReference("Info").child("name").setValue(name);
+    }
+    public void writeUserAd(String address) {
         database.getReference("Info").child("ad").setValue(address);
     }
 }
