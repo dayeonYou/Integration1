@@ -22,20 +22,19 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Btn2"></activity>
-        <activity android:name=".Btn1"></activity>
-        <activity android:name=".Alarm1"></activity>
-        <activity android:name=".Btn3"></activity>
-        <activity android:name=".Explain"></activity>
-        <activity android:name=".Parcel_e"></activity>
-        <activity android:name=".Parcel_N"></activity>
-        <activity android:name=".Parcel_not"></activity>
-        <activity android:name=".Handle_missing_parcel"></activity>
-        <activity android:name=".Handle_misdelivery"></activity>
+        <activity android:name=".Btn2" />
+        <activity android:name=".Btn1" />
+        <activity android:name=".Alarm1" />
+        <activity android:name=".Btn3" />
+        <activity android:name=".Explain" />
+        <activity android:name=".Parcel_e" />
+        <activity android:name=".Parcel_N" />
+        <activity android:name=".Parcel_not" />
+        <activity android:name=".Handle_missing_parcel" />
+        <activity android:name=".Handle_misdelivery" />
         <receiver android:name=".MyNotificationPublisher"/>
     </application>
 

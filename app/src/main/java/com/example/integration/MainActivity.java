@@ -12,7 +12,6 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -34,9 +33,7 @@ import android.net.NetworkInfo;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import androidx.appcompat.app.AlertDialog;
 import java.lang.*;
@@ -52,8 +49,10 @@ public class MainActivity extends AppCompatActivity {
     public static String NOTIFICATION_CHANNEL_ID = "1001";
     public static String default_notification_id = "default";
     SharedPreferences sp;
+    SharedPreferences sp_w;
     int size_array = 0;
     int flag_receive = 0;
+    static int saveInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         Button btn3 = (Button) findViewById(R.id.btn3);
         Button btnE = (Button) findViewById(R.id.parcelEBtn);
         Button btnN = (Button) findViewById(R.id.parcelNBtn);
+
+        sp_w = getSharedPreferences("sp_wInt", MODE_PRIVATE);
+        saveInt = sp_w.getInt("sp_wInt", 0);
+        
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -167,7 +170,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     arrayList.add(user);// 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
                     if(user.getReceive() != null) { //택배 회수됨
-                        Parcel_e.writeNewUserE(id, profile);
+                        writeNewUser(id,profile);
+                        save(saveInt,2);
                         deleteData(user.getId());
                         //push 알림
                         flag_receive = 1;
@@ -175,13 +179,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
                 if(size_array < arrayList.size()){ //택배 추가됨
-                    scheduleNotification(getNotification(1),0);
+                    scheduleNotification(getNotification(1));
                 }
                 else if((size_array > arrayList.size()) && (flag_receive == 1)){
-                    scheduleNotification(getNotification(2),0);
+                    scheduleNotification(getNotification(2));
                     flag_receive = 0;
                 }
-                save(arrayList.size());
+                save(arrayList.size(),1);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -192,19 +196,22 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new CustomAdapter(arrayList, this,"home");
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
+
         if(false){ //받은 택배 없음
             rv.setVisibility(View.GONE);
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void scheduleNotification(Notification notification, int delay){
+    private void scheduleNotification(Notification notification){
+        int requestID = (int) System.currentTimeMillis();
+
         Intent notificationIntent = new Intent(this, MyNotificationPublisher.class);
         notificationIntent.putExtra(MyNotificationPublisher.NOTIFICATIONID,1);
         notificationIntent.putExtra(MyNotificationPublisher.NOTIFICATION,notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,notificationIntent,PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,requestID,notificationIntent,PendingIntent.FLAG_MUTABLE);
 
-        long futureMillis = SystemClock.elapsedRealtime()+delay;
+        long futureMillis = SystemClock.elapsedRealtime();
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         assert alarmManager != null;
@@ -216,12 +223,10 @@ public class MainActivity extends AppCompatActivity {
         NotificationCompat.Builder builder= new NotificationCompat.Builder(this,default_notification_id);;
         switch (num){
             case 1:
-                builder = new NotificationCompat.Builder(this,"1");
-                builder.setContentText("1.택배 도착");
+                builder.setContentText("새로운 택배가 도착했습니다!");
                 break;
             case 2:
-                builder = new NotificationCompat.Builder(this,"2");
-                builder.setContentText("2.택배 회수됨");
+                builder.setContentText("택배가 회수되었습니다!");
                 break;
             default:
                 builder.setContentText("default");
@@ -290,11 +295,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void save(int s){
+    public void save(int s, int num){
         sp = getSharedPreferences("size_arraylist",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.clear();
-        editor.putInt("size_arraylist",s);
+        sp_w = getSharedPreferences("sp_wInt",MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+        if(num == 1){
+            editor = sp.edit();
+            editor.clear();
+            editor.putInt("size_arraylist",s);
+        }
+        else{
+            editor = sp_w.edit();
+            editor.clear();
+            editor.putInt("sp_wInt",s);
+        }
         editor.commit();
+
+    }
+    public void writeNewUser(String tv_id, String iv_profile) {
+        String index = "eUser_0" + saveInt;
+        database.getReference("E").child(index).child("id").setValue(tv_id);
+        database.getReference("E").child(index).child("profile").setValue(iv_profile);
+        saveInt++;
+
     }
 }

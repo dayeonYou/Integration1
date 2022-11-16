@@ -76,12 +76,12 @@ public class Parcel_not extends AppCompatActivity {
         adapter = new CustomAdapter(arrayList, this,"not");
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
-        saveInt++;
+        saveInt += 3;
         save(saveInt);
 
     }
     static void writeNewUser(String tv_id, String iv_profile) {
-        //User user = new User(tv_id,iv_profile);
+        User user = new User(tv_id,iv_profile);
         //int number = (int)(Math.random()*100);
         String index = "nUser_0" + saveInt;
         database.getReference("N").child(index).child("id").setValue(tv_id);

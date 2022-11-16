@@ -30,8 +30,7 @@ public class Parcel_e extends AppCompatActivity {
     private ArrayList<User> arrayList;
     static FirebaseDatabase database;
     static DatabaseReference databaseReference;
-    SharedPreferences sp;
-    static int saveInt;
+
     @Override
     protected void onCreate(@Nullable Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -52,8 +51,6 @@ public class Parcel_e extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        sp = getSharedPreferences("sp2", MODE_PRIVATE);
-        saveInt = sp.getInt("save2", 0);
 
         recyclerView = findViewById(R.id.rvE);
 
@@ -87,21 +84,6 @@ public class Parcel_e extends AppCompatActivity {
         adapter = new CustomAdapter(arrayList, this,"end");
         recyclerView.setAdapter(adapter);
 
-        saveInt++;
-        save(saveInt);
-
-    }
-    static void writeNewUserE(String tv_id, String iv_profile) {
-        String index = "eUser_0" + saveInt;
-        database.getReference("E").child(index).child("id").setValue(tv_id);
-        database.getReference("E").child(index).child("profile").setValue(iv_profile);
-    }
-    public void save(int s){
-        sp = getSharedPreferences("sp2",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.clear();
-        editor.putInt("save2",s);
-        editor.commit();
     }
     static void deleteDataE(String tv_id) {
 
