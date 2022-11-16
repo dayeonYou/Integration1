@@ -29,7 +29,7 @@ public class Parcel_not extends AppCompatActivity {
     private ArrayList<User> arrayList;
     static FirebaseDatabase database;
     static DatabaseReference databaseReference;
-    SharedPreferences sp;
+    static SharedPreferences sp;
     static int saveInt;
     @Override
     protected void onCreate(@Nullable Bundle saveInstanceState) {
@@ -76,13 +76,11 @@ public class Parcel_not extends AppCompatActivity {
         adapter = new CustomAdapter(arrayList, this,"not");
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
-        saveInt += 3;
+        saveInt++;
         save(saveInt);
-
     }
     static void writeNewUser(String tv_id, String iv_profile) {
         User user = new User(tv_id,iv_profile);
-        //int number = (int)(Math.random()*100);
         String index = "nUser_0" + saveInt;
         database.getReference("N").child(index).child("id").setValue(tv_id);
         database.getReference("N").child(index).child("profile").setValue(iv_profile);

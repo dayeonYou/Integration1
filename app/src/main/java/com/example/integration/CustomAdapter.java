@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
@@ -29,6 +30,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     private ArrayList<User> arrayList;
     private Context context;
     private String branch;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();;
+    SharedPreferences sp;
+    static int saveInt;
+    Context mContext;
 
     public CustomAdapter(ArrayList<User> arrayList, Context context,String branch) {
         this.arrayList = arrayList;
@@ -92,9 +97,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                         dialog.dismiss();
                         //context.startActivity(intent);
                         //v.getContext().startActivity(intent);
-
-//                        Parcel_not.writeNewUser(id,profileUrl);
-
+                        // Parcel_not.writeNewUser(id,profileUrl);
+                        mContext = context;
+                        sp = mContext.getSharedPreferences("sp_N", MODE_PRIVATE);
+                        saveInt = sp.getInt("save_N", 0);
+                        writeNewUser(id,profileUrl);
+                        saveInt++;
+                        save(saveInt);
                         MainActivity.deleteData(id);
                     });
                     builder.setPositiveButton("취소", (DialogInterface.OnClickListener) (dialog, which) -> {
@@ -180,5 +189,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 this.wrongParcel = (RadioButton) itemView.findViewById(R.id.wrongParcel);
             }
         }
+    }
+    public void writeNewUser(String tv_id, String iv_profile) {
+        String index = "nUser_0" + saveInt;
+        database.getReference("N").child(index).child("id").setValue(tv_id);
+        database.getReference("N").child(index).child("profile").setValue(iv_profile);
+    }
+    public void save(int s){
+        this.mContext = context;
+        sp = mContext.getSharedPreferences("sp_N",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.putInt("save_N",s);
+        editor.commit();
     }
 }
