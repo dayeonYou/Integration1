@@ -71,48 +71,48 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         String profileUrl = arrayList.get(position).getProfile();
 
         if(branch == "home"){
-            holder.rightParcel.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    Toast.makeText(v.getContext(),"확인 해주셔서 감사합니다.",Toast.LENGTH_SHORT).show();
-                }
-            });
-            holder.wrongParcel.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    Toast.makeText(v.getContext(),"잘못 온 택배입니다.",Toast.LENGTH_SHORT).show();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setMessage("\n자신의 것이 아닌 택배를 받은 경우\n      1. 받는 사람과 주소를 확인합니다.\n      2. 받는 사람의 전화번호로 연락해봅니다.\n      3. 택배기사에게 연락해봅니다.\n확인 버튼을 누르면 타인의 택배로 취급됩니다");
-                    builder.setTitle("NOT YOUR PARCEL");
-                    builder.setCancelable(false);
-                    builder.setNegativeButton("확인", (DialogInterface.OnClickListener) (dialog, which) -> {
-//                    String input = holder.tv_id.getText().toString(); //db 사용 안하고 저장하는 방법
-//                    //인텐트 선언 및 정의
-//                    Intent intent = new Intent(v.getContext(), Parcel_not.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    //입력한 input값을 intent로 전달한다.
-//                    intent.putExtra("text", input);
-                        //액티비티 이동
-                        remove(holder.getAdapterPosition());
-                        dialog.dismiss();
-                        //context.startActivity(intent);
-                        //v.getContext().startActivity(intent);
-                        // Parcel_not.writeNewUser(id,profileUrl);
-                        mContext = context;
-                        sp = mContext.getSharedPreferences("sp_N", MODE_PRIVATE);
-                        saveInt = sp.getInt("save_N", 0);
-                        writeNewUser(id,profileUrl);
-                        saveInt++;
-                        save(saveInt);
-                        MainActivity.deleteData(id);
-                    });
-                    builder.setPositiveButton("취소", (DialogInterface.OnClickListener) (dialog, which) -> {
-                        dialog.cancel();
-                    });
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
-                }
-            });
+//            holder.rightParcel.setOnClickListener(new View.OnClickListener(){
+//                @Override
+//                public void onClick(View v){
+//                    Toast.makeText(v.getContext(),"확인 해주셔서 감사합니다.",Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//            holder.wrongParcel.setOnClickListener(new View.OnClickListener(){
+//                @Override
+//                public void onClick(View v){
+//                    Toast.makeText(v.getContext(),"잘못 온 택배입니다.",Toast.LENGTH_SHORT).show();
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+//                    builder.setMessage("\n자신의 것이 아닌 택배를 받은 경우\n      1. 받는 사람과 주소를 확인합니다.\n      2. 받는 사람의 전화번호로 연락해봅니다.\n      3. 택배기사에게 연락해봅니다.\n확인 버튼을 누르면 타인의 택배로 취급됩니다");
+//                    builder.setTitle("NOT YOUR PARCEL");
+//                    builder.setCancelable(false);
+//                    builder.setNegativeButton("확인", (DialogInterface.OnClickListener) (dialog, which) -> {
+////                    String input = holder.tv_id.getText().toString(); //db 사용 안하고 저장하는 방법
+////                    //인텐트 선언 및 정의
+////                    Intent intent = new Intent(v.getContext(), Parcel_not.class);
+////                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                    //입력한 input값을 intent로 전달한다.
+////                    intent.putExtra("text", input);
+//                        //액티비티 이동
+//                        remove(holder.getAdapterPosition());
+//                        dialog.dismiss();
+//                        //context.startActivity(intent);
+//                        //v.getContext().startActivity(intent);
+//                        // Parcel_not.writeNewUser(id,profileUrl);
+//                        mContext = context;
+//                        sp = mContext.getSharedPreferences("sp_N", MODE_PRIVATE);
+//                        saveInt = sp.getInt("save_N", 0);
+//                        writeNewUser(id,profileUrl);
+//                        saveInt++;
+//                        save(saveInt);
+//                        MainActivity.deleteData(id);
+//                    });
+//                    builder.setPositiveButton("취소", (DialogInterface.OnClickListener) (dialog, which) -> {
+//                        dialog.cancel();
+//                    });
+//                    AlertDialog alertDialog = builder.create();
+//                    alertDialog.show();
+//                }
+//            });
         }
         else if(branch == "end"){
             holder.rightParcel.setOnClickListener(new View.OnClickListener(){
@@ -184,7 +184,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             //branch != "end"
             if(true) this.iv_profile = itemView.findViewById(R.id.iv_profile);
             this.tv_id = itemView.findViewById(R.id.tv_id);
-            if(branch == "home" || branch == "end"){
+//            if(branch == "home" || branch == "end")
+            if(branch == "end"){
                 this.rightParcel = (RadioButton) itemView.findViewById(R.id.rightParcel);
                 this.wrongParcel = (RadioButton) itemView.findViewById(R.id.wrongParcel);
             }

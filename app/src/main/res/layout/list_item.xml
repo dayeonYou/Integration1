@@ -30,43 +30,43 @@
         android:text="데이터베이스에서 받아온 정보"
         android:textSize="17dp"
         android:layout_margin="5dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_marginBottom="10dp">-->
 
-        <TextView
-            android:id="@+id/checkT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="당신의 택배가 맞습니까?"
-            android:textSize="17dp"
-            android:layout_gravity="center"/>
+<!--        <TextView-->
+<!--            android:id="@+id/checkT"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:text="당신의 택배가 맞습니까?"-->
+<!--            android:textSize="17dp"-->
+<!--            android:layout_gravity="center"/>-->
 
-        <RadioGroup
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="8dp"
-            android:layout_gravity="center">
-            <RadioButton
-                android:text="yes"
-                android:id="@+id/rightParcel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_gravity="center">
-            </RadioButton>
-            <RadioButton
-                android:text="no"
-                android:id="@+id/wrongParcel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_gravity="center">
-            </RadioButton>
-        </RadioGroup>
-    </LinearLayout>
+<!--        <RadioGroup-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            android:layout_gravity="center">-->
+<!--            <RadioButton-->
+<!--                android:text="yes"-->
+<!--                android:id="@+id/rightParcel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="80dp"-->
+<!--                android:layout_gravity="center">-->
+<!--            </RadioButton>-->
+<!--            <RadioButton-->
+<!--                android:text="no"-->
+<!--                android:id="@+id/wrongParcel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_gravity="center">-->
+<!--            </RadioButton>-->
+<!--        </RadioGroup>-->
+<!--    </LinearLayout>-->
 </LinearLayout>
