@@ -15,6 +15,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +35,7 @@ import android.net.NetworkInfo;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -65,6 +68,31 @@ public class MainActivity extends AppCompatActivity {
         Button btnE = (Button) findViewById(R.id.parcelEBtn);
         Button btnN = (Button) findViewById(R.id.parcelNBtn);
 
+        EditText editText_name= (EditText) findViewById(R.id.ed_name);
+        EditText editText_ad = (EditText) findViewById(R.id.ed_ad);
+
+        editText_name.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Do stuff
+                String info_name = editText_name.getText().toString();
+                String info_ad = editText_ad.getText().toString();
+                writeUserInfo(info_name, info_ad);
+            }
+        });
+        editText_ad.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Do stuff
+                String info_name = editText_name.getText().toString();
+                String info_ad = editText_ad.getText().toString();
+                writeUserInfo(info_name, info_ad);
+            }
+        });
         sp_w = getSharedPreferences("sp_wInt", MODE_PRIVATE);
         saveInt = sp_w.getInt("sp_wInt", 0);
         
@@ -317,6 +345,10 @@ public class MainActivity extends AppCompatActivity {
         database.getReference("E").child(index).child("id").setValue(tv_id);
         database.getReference("E").child(index).child("profile").setValue(iv_profile);
         saveInt++;
-
+    }
+    public void writeUserInfo(String name, String address) {
+        database = FirebaseDatabase.getInstance();
+        database.getReference("Info").child("name").setValue(name);
+        database.getReference("Info").child("ad").setValue(address);
     }
 }
