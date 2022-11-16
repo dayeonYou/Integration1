@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
     int size_array = 0;
     int flag_receive = 0;
     static int saveInt;
-
+    String info_name;
+    String info_ad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Do stuff
-                String info_name = editText_name.getText().toString();
-                String info_ad = editText_ad.getText().toString();
+                info_name = editText_name.getText().toString();
+                info_ad = editText_ad.getText().toString();
                 writeUserInfo(info_name, info_ad);
             }
         });
@@ -88,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Do stuff
-                String info_name = editText_name.getText().toString();
-                String info_ad = editText_ad.getText().toString();
+                info_name = editText_name.getText().toString();
+                info_ad = editText_ad.getText().toString();
                 writeUserInfo(info_name, info_ad);
             }
         });
@@ -197,8 +198,16 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     arrayList.add(user);// 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+//                    boolean Con_name = id.contains(info_name);
+//                    boolean Con_ad = id.contains(info_ad);
+//                    boolean Con = Con_ad & Con_name;
+//                    if(!Con){
+//                        //타인의 택배 --> 홈화면 띄우기 --> 푸시알림 --> 확인버튼 --> 타인의 택배함으로
+//                        writeNewUser(id,profile,2);
+//                        deleteData(user.getId());
+//                    }
                     if(user.getReceive() != null) { //택배 회수됨
-                        writeNewUser(id,profile);
+                        writeNewUser(id,profile,1);
                         save(saveInt,2);
                         deleteData(user.getId());
                         //push 알림
@@ -340,10 +349,16 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
 
     }
-    public void writeNewUser(String tv_id, String iv_profile) {
+    public void writeNewUser(String tv_id, String iv_profile, int num) {
         String index = "eUser_0" + saveInt;
-        database.getReference("E").child(index).child("id").setValue(tv_id);
-        database.getReference("E").child(index).child("profile").setValue(iv_profile);
+        if(num == 1){
+            database.getReference("E").child(index).child("id").setValue(tv_id);
+            database.getReference("E").child(index).child("profile").setValue(iv_profile);
+        }
+        else{
+            database.getReference("N").child(index).child("id").setValue(tv_id);
+            database.getReference("N").child(index).child("profile").setValue(iv_profile);
+        }
         saveInt++;
     }
     public void writeUserInfo(String name, String address) {
