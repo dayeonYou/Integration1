@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sp_w;
     int size_array = 0;
     int flag_receive = 0;
+    int flag_not = 0;
     static int saveInt;
     String info_name;
     String info_ad;
@@ -224,14 +225,18 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     arrayList.add(user);// 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
-//                    boolean Con_name = id.contains(info_name);
-//                    boolean Con_ad = id.contains(info_ad);
-//                    boolean Con = Con_ad & Con_name;
-//                    if(!Con){
-//                        //타인의 택배 --> 홈화면 띄우기 --> 푸시알림 --> 확인버튼 --> 타인의 택배함으로
-//                        writeNewUser(id,profile,2);
-//                        deleteData(user.getId());
-//                    }
+                    if((info_name!=null) && (info_ad!=null)){
+                        boolean Con_name = id.contains(info_name);
+                        boolean Con_ad = id.contains(info_ad);
+                        boolean Con = Con_ad & Con_name;
+                        if(!Con){
+                            //타인의 택배 --> 홈화면 띄우기 --> 푸시알림 --> 확인버튼 --> 타인의 택배함으로
+                            scheduleNotification(getNotification(3));
+                            writeNewUser(id,profile,2);
+                            deleteData(user.getId());
+                            flag_not = 1;
+                        }
+                    }
                     if(user.getReceive() != null) { //택배 회수됨
                         writeNewUser(id,profile,1);
                         save(saveInt,2);
@@ -241,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
-                if(size_array < arrayList.size()){ //택배 추가됨
+                if((size_array < arrayList.size())){ //택배 추가됨, 맞는 택배
                     scheduleNotification(getNotification(1));
                 }
                 else if((size_array > arrayList.size()) && (flag_receive == 1)){
@@ -290,6 +295,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 2:
                 builder.setContentText("택배가 회수되었습니다!");
+                break;
+            case 3:
+                builder.setContentText("타인의 택배가 도착했습니다!");
                 break;
             default:
                 builder.setContentText("default");
@@ -376,12 +384,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void writeNewUser(String tv_id, String iv_profile, int num) {
-        String index = "eUser_0" + saveInt;
+
         if(num == 1){
+            String index = "eUser_0" + saveInt;
             database.getReference("E").child(index).child("id").setValue(tv_id);
             database.getReference("E").child(index).child("profile").setValue(iv_profile);
         }
         else{
+            String index = "nUser_0" + saveInt;
             database.getReference("N").child(index).child("id").setValue(tv_id);
             database.getReference("N").child(index).child("profile").setValue(iv_profile);
         }
