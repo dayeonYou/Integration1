@@ -231,9 +231,9 @@ public class MainActivity extends AppCompatActivity {
                         boolean Con = Con_ad & Con_name;
                         if(!Con){
                             //타인의 택배 --> 홈화면 띄우기 --> 푸시알림 --> 확인버튼 --> 타인의 택배함으로
-                            scheduleNotification(getNotification(3));
                             writeNewUser(id,profile,2);
                             deleteData(user.getId());
+                            scheduleNotification(getNotification(3));
                             flag_not = 1;
                         }
                     }
