@@ -234,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
                             writeNewUser(id,profile,2);
                             deleteData(user.getId());
                             scheduleNotification(getNotification(3));
+                            arrayList.remove(arrayList.size()-1);
                             flag_not = 1;
                         }
                     }
