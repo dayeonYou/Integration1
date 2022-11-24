@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     static FirebaseDatabase database;
     static DatabaseReference databaseReference;
     public static String NOTIFICATION_CHANNEL_ID = "1001";
-    public static String default_notification_id = "default";
     private NotificationHelper mNotificationHelper;
     SharedPreferences sp;
     SharedPreferences sp_w;
@@ -63,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
     static int saveInt;
     String info_name;
     String info_ad;
-    PendingIntent pendingIntent;
+    int count;
+    int receive;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -254,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
+
                 if((size_array < arrayList.size())){ //택배 추가됨, 맞는 택배
                     sendOnChannel1("택배 도착!","택배가 도착했습니다.");
                     // scheduleNotification(getNotification(1));

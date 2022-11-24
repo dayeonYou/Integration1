@@ -73,7 +73,7 @@ public class NotificationHelper extends ContextWrapper {
     }
     public NotificationCompat.Builder getChannel2Notification(String title, String message){
         int requestID = (int) System.currentTimeMillis();
-        Intent resultIntent = new Intent(this,Parcel_not.class);
+        Intent resultIntent = new Intent(this,Parcel_e.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, requestID, resultIntent, PendingIntent.FLAG_MUTABLE);
 
         return  new NotificationCompat.Builder(getApplicationContext(),channel2ID)
@@ -85,7 +85,7 @@ public class NotificationHelper extends ContextWrapper {
     }
     public NotificationCompat.Builder getChannel3Notification(String title, String message){
         int requestID = (int) System.currentTimeMillis();
-        Intent resultIntent = new Intent(this,Parcel_e.class);
+        Intent resultIntent = new Intent(this,Parcel_not.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, requestID, resultIntent, PendingIntent.FLAG_MUTABLE);
 
         return  new NotificationCompat.Builder(getApplicationContext(),channel3ID)
