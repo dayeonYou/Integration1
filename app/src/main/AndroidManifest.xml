@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.integration">
+
+    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -20,7 +23,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize|adjustPan">
+            android:windowSoftInputMode="adjustResize|adjustPan"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,9 +35,11 @@
         <activity android:name=".Alarm1" />
         <activity android:name=".Btn3" />
         <activity android:name=".Explain" />
-        <activity android:name=".Parcel_e" />
+        <activity android:name=".Parcel_e"
+            android:launchMode="singleTop"/>
         <activity android:name=".Parcel_N" />
-        <activity android:name=".Parcel_not" />
+        <activity android:name=".Parcel_not"
+            android:launchMode="singleTop"/>
         <activity android:name=".Handle_missing_parcel" />
         <activity android:name=".Handle_misdelivery" />
         <receiver android:name=".MyNotificationPublisher"/>

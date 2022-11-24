@@ -8,6 +8,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     static DatabaseReference databaseReference;
     public static String NOTIFICATION_CHANNEL_ID = "1001";
     public static String default_notification_id = "default";
+    private NotificationHelper mNotificationHelper;
     SharedPreferences sp;
     SharedPreferences sp_w;
     int size_array = 0;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     static int saveInt;
     String info_name;
     String info_ad;
+    PendingIntent pendingIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
         EditText editText_name= (EditText) findViewById(R.id.ed_name);
         EditText editText_ad = (EditText) findViewById(R.id.ed_ad);
+
+        mNotificationHelper = new NotificationHelper(this);
 
         sp_w = getSharedPreferences("sp_wInt", MODE_PRIVATE);
         saveInt = sp_w.getInt("sp_wInt", 0);
@@ -210,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
         databaseReference = database.getReference("User"); // DB 테이블 연결
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -233,7 +239,8 @@ public class MainActivity extends AppCompatActivity {
                             //타인의 택배 --> 홈화면 띄우기 --> 푸시알림 --> 확인버튼 --> 타인의 택배함으로
                             writeNewUser(id,profile,2);
                             deleteData(user.getId());
-                            scheduleNotification(getNotification(3));
+                            //scheduleNotification(getNotification(3));
+                            sendOnChannel3("타인의 택배","도착");
                             arrayList.remove(arrayList.size()-1);
                             flag_not = 1;
                         }
@@ -248,10 +255,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
                 if((size_array < arrayList.size())){ //택배 추가됨, 맞는 택배
-                    scheduleNotification(getNotification(1));
+                    sendOnChannel1("택배 도착!","택배가 도착했습니다.");
+                    // scheduleNotification(getNotification(1));
                 }
                 else if((size_array > arrayList.size()) && (flag_receive == 1)){
-                    scheduleNotification(getNotification(2));
+                    //scheduleNotification(getNotification(2));
+                    sendOnChannel2("택배 회수","회수되었습니다.");
                     flag_receive = 0;
                 }
                 save(arrayList.size(),1);
@@ -271,45 +280,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void scheduleNotification(Notification notification){
-        int requestID = (int) System.currentTimeMillis();
 
-        Intent notificationIntent = new Intent(this, MyNotificationPublisher.class);
-        notificationIntent.putExtra(MyNotificationPublisher.NOTIFICATIONID,1);
-        notificationIntent.putExtra(MyNotificationPublisher.NOTIFICATION,notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,requestID,notificationIntent,PendingIntent.FLAG_MUTABLE);
-
-        long futureMillis = SystemClock.elapsedRealtime();
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        assert alarmManager != null;
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,futureMillis,pendingIntent);
-
-    }
-
-    private Notification getNotification(int num){
-        NotificationCompat.Builder builder= new NotificationCompat.Builder(this,default_notification_id);;
-        switch (num){
-            case 1:
-                builder.setContentText("새로운 택배가 도착했습니다!");
-                break;
-            case 2:
-                builder.setContentText("택배가 회수되었습니다!");
-                break;
-            case 3:
-                builder.setContentText("타인의 택배가 도착했습니다!");
-                break;
-            default:
-                builder.setContentText("default");
-                break;
-        }
-        builder.setChannelId(NOTIFICATION_CHANNEL_ID);
-        builder.setContentTitle("택배 정보 갱신!");
-        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
-        builder.setAutoCancel(true);
-        return builder.build();
-    }
 
     @Override
     public void onBackPressed() {
@@ -403,5 +374,20 @@ public class MainActivity extends AppCompatActivity {
     }
     public void writeUserAd(String address) {
         database.getReference("Info").child("ad").setValue(address);
+    }
+
+    public void sendOnChannel1(String title, String message) {
+        NotificationCompat.Builder nb = mNotificationHelper.getChannel1Notification(title, message);
+        mNotificationHelper.getManager().notify(1,nb.build());
+    }
+
+    public void sendOnChannel2(String title, String message) {
+        NotificationCompat.Builder nb = mNotificationHelper.getChannel2Notification(title, message);
+        mNotificationHelper.getManager().notify(2,nb.build());
+    }
+
+    public void sendOnChannel3(String title, String message) {
+        NotificationCompat.Builder nb = mNotificationHelper.getChannel3Notification(title, message);
+        mNotificationHelper.getManager().notify(3,nb.build());
     }
 }
