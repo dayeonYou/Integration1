@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -42,7 +43,7 @@
             android:launchMode="singleTop"/>
         <activity android:name=".Handle_missing_parcel" />
         <activity android:name=".Handle_misdelivery" />
-        <receiver android:name=".MyNotificationPublisher"/>
+        <receiver android:name=".NotificationReceiver"/>
     </application>
 
 </manifest>

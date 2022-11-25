@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +46,8 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AlertDialog;
 import java.lang.*;
 import java.util.Objects;
+import static com.example.integration.App.CHANNEL_1_ID;
+import static com.example.integration.App.CHANNEL_2_ID;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     static DatabaseReference databaseReference;
     public static String NOTIFICATION_CHANNEL_ID = "1001";
     private NotificationHelper mNotificationHelper;
+    private NotificationManagerCompat notificationManager;
     SharedPreferences sp;
     SharedPreferences sp_w;
     int size_array = 0;
@@ -62,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
     static int saveInt;
     String info_name;
     String info_ad;
-    int count;
-    int receive;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         EditText editText_ad = (EditText) findViewById(R.id.ed_ad);
 
         mNotificationHelper = new NotificationHelper(this);
+
+        notificationManager = NotificationManagerCompat.from(this);
 
         sp_w = getSharedPreferences("sp_wInt", MODE_PRIVATE);
         saveInt = sp_w.getInt("sp_wInt", 0);
@@ -240,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                             writeNewUser(id,profile,2);
                             deleteData(user.getId());
                             //scheduleNotification(getNotification(3));
-                            sendOnChannel3("타인의 택배","도착");
+                            sendOnChannel2_1("타인의 택배 도착!","타인의 택배로 추정됩니다.",3);
                             arrayList.remove(arrayList.size()-1);
                             flag_not = 1;
                         }
@@ -251,17 +256,18 @@ public class MainActivity extends AppCompatActivity {
                         deleteData(user.getId());
                         //push 알림
                         flag_receive = 1;
+                        arrayList.remove(arrayList.size()-1);
                     }
                 }
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
 
                 if((size_array < arrayList.size())){ //택배 추가됨, 맞는 택배
-                    sendOnChannel1("택배 도착!","택배가 도착했습니다.");
+                    sendOnChannel2_1("택배 도착!","택배가 도착했습니다.",1);
                     // scheduleNotification(getNotification(1));
                 }
                 else if((size_array > arrayList.size()) && (flag_receive == 1)){
                     //scheduleNotification(getNotification(2));
-                    sendOnChannel2("택배 회수","회수되었습니다.");
+                    sendOnChannel2_1("택배 회수!","택배가 회수되었습니다.",2);
                     flag_receive = 0;
                 }
                 save(arrayList.size(),1);
@@ -369,6 +375,7 @@ public class MainActivity extends AppCompatActivity {
             database.getReference("N").child(index).child("profile").setValue(iv_profile);
         }
         saveInt++;
+
     }
     public void writeUserName(String name) {
         database.getReference("Info").child("name").setValue(name);
@@ -390,5 +397,44 @@ public class MainActivity extends AppCompatActivity {
     public void sendOnChannel3(String title, String message) {
         NotificationCompat.Builder nb = mNotificationHelper.getChannel3Notification(title, message);
         mNotificationHelper.getManager().notify(3,nb.build());
+    }
+    public void sendOnChannel2_1(String passTitle, String passMessage, int num) {
+        String title = passTitle;
+        String message = passMessage;
+        int requestID = (int) System.currentTimeMillis();
+        int icon;
+        Intent activityIntent;
+        switch(num){
+            case 2:
+                activityIntent = new Intent(this, Parcel_e.class);
+                //icon = R.drawable.ic_two;
+                break;
+            case 3:
+                activityIntent = new Intent(this, Parcel_not.class);
+                //icon = R.drawable.ic_three;
+                break;
+            default:
+                activityIntent = new Intent(this, MainActivity.class);
+                //icon = R.drawable.ic_one;
+                break;
+        }
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this,requestID,activityIntent,PendingIntent.FLAG_MUTABLE);
+        Intent broadcastIntent = new Intent(this, NotificationReceiver.class);
+        broadcastIntent.putExtra("toastMessage",message);
+        PendingIntent actionIntent = PendingIntent.getBroadcast(this,requestID,broadcastIntent,PendingIntent.FLAG_MUTABLE);
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_two)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setColor(Color.BLUE)
+                .setContentIntent(contentIntent)
+                .addAction(R.mipmap.ic_launcher,"확인",actionIntent)
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .build();
+        notificationManager.notify(1, notification);
     }
 }
