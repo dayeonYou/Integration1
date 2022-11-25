@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
     static int saveInt;
     String info_name;
     String info_ad;
+    String id, profile;
+    private ArrayList<String> listN;
+    private ArrayList<String> listE;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -230,8 +233,8 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
                     User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
                     assert user != null;
-                    String id = user.getId();
-                    String profile = user.getProfile();
+                    id = user.getId();
+                    profile = user.getProfile();
                     if(Objects.equals(id, "exist")){
                         break;
                     }
@@ -242,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                         boolean Con = Con_ad & Con_name;
                         if(!Con){
                             //타인의 택배 --> 홈화면 띄우기 --> 푸시알림 --> 확인버튼 --> 타인의 택배함으로
-                            writeNewUser(id,profile,2);
+                            writeNewUser(user.getId(),user.getProfile(),2);
                             deleteData(user.getId());
                             //scheduleNotification(getNotification(3));
                             sendOnChannel2_1("타인의 택배 도착!","타인의 택배로 추정됩니다.",3);
@@ -251,14 +254,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     if(user.getReceive() != null) { //택배 회수됨
-                        writeNewUser(id,profile,1);
-                        save(saveInt,2);
+                        writeNewUser(user.getId(),user.getProfile(),1);
                         deleteData(user.getId());
                         //push 알림
                         flag_receive = 1;
                         arrayList.remove(arrayList.size()-1);
                     }
                 }
+                save(saveInt,2);
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
 
                 if((size_array < arrayList.size())){ //택배 추가됨, 맞는 택배
@@ -368,6 +371,7 @@ public class MainActivity extends AppCompatActivity {
             String index = "eUser_0" + saveInt;
             database.getReference("E").child(index).child("id").setValue(tv_id);
             database.getReference("E").child(index).child("profile").setValue(iv_profile);
+
         }
         else{
             String index = "nUser_0" + saveInt;
@@ -375,7 +379,6 @@ public class MainActivity extends AppCompatActivity {
             database.getReference("N").child(index).child("profile").setValue(iv_profile);
         }
         saveInt++;
-
     }
     public void writeUserName(String name) {
         database.getReference("Info").child("name").setValue(name);
