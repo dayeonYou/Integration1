@@ -1,5 +1,6 @@
 package com.example.integration;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class Btn1 extends AppCompatActivity {
     String videoUrl = "abababa";
     static FirebaseDatabase database;
     static DatabaseReference databaseReference;
+    TextView PirText;
     @Override
     protected void onCreate(@Nullable Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -54,5 +56,26 @@ public class Btn1 extends AppCompatActivity {
                 Log.e("MainActivity", String.valueOf(databaseError.toException()));
             }
         });
+        PirText = findViewById(R.id.PirText);
+        //PirText.setText("On");
+
+        databaseReference = database.getReference("Data/LED");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String PirData = snapshot.getValue().toString();
+                PirText.setText("Pir : " + PirData);
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                PirText.setText("error : " + error.toException());
+                Log.e("MainActivity", String.valueOf(error.toException()));
+            }
+        });
+
     }
 }
